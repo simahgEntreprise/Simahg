@@ -1,0 +1,10 @@
+{
+	"description": "SIMAHG - Sistema de Gestión",
+	"name": "simahg/sistema",
+	"type": "project",
+	"license": "MIT",
+	"require": {
+		"php": ">=5.6.0",
+		"phpmailer/phpmailer": "^7.0"
+	}
+}

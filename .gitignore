@@ -1,0 +1,36 @@
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos temporales
+*.tmp
+*.log
+*.bak
+*.old
+
+# Sesiones PHP
+application/sessions/*
+!application/sessions/index.html
+
+# Logs
+application/logs/*
+!application/logs/index.html
+
+# Cache
+application/cache/*
+!application/cache/index.html
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Dependencias
+node_modules/
+vendor/
+
+# Archivos de configuración local (sensibles)
+config_local.php
+.env
