@@ -7,50 +7,104 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
         body { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            width: 100%;
+            padding: 20px;
         }
         .login-container { 
-            max-width: 400px; 
+            max-width: 420px; 
+            width: 100%;
             margin: 0 auto; 
-            padding: 40px;
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 40px 35px;
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
         }
         .logo { 
             text-align: center; 
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+        }
+        .logo svg {
+            display: block;
+            margin: 0 auto 15px;
         }
         .logo h2 {
-            color: #333;
-            font-weight: 700;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: 3px;
+            font-size: 32px;
+        }
+        .form-group {
+            margin-bottom: 20px;
         }
         .form-control {
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            padding: 15px;
+            width: 100%;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            padding: 15px 20px;
             font-size: 16px;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         .btn-login {
+            width: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 15px;
             font-weight: 600;
+            font-size: 16px;
             color: white;
             transition: all 0.3s;
+            cursor: pointer;
         }
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-login:active {
+            transform: translateY(0);
         }
         .alert {
             border-radius: 10px;
             margin-bottom: 20px;
+            padding: 12px 15px;
+        }
+        .text-center a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .text-center a:hover {
+            color: #764ba2;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -141,7 +195,3 @@
     </div>
 </body>
 </html>
-# Update 1764801941
-# Update 1764801943
-# Update 1764801944
-# Update 1764801946
