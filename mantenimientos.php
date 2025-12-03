@@ -561,5 +561,3 @@ function calcularProximoMantenimiento($fecha_actual, $frecuencia_dias) {
     </script>
 </body>
 </html>
-# Update 1764801942
-# Update 1764801945

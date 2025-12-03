@@ -582,8 +582,3 @@ $(document).ready(function() {
 
 </body>
 </html>
-# Update 1764801942
-# Update 1764801943
-# Update 1764801944
-# Update 1764801946
-# Update 1764801947

@@ -249,10 +249,3 @@ try {
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
-# Update 1764801942
-# Update 1764801943
-# Update 1764801944
-# Update 1764801944
-# Update 1764801945
-# Update 1764801946
-# Update 1764801946

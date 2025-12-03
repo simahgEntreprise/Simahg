@@ -160,6 +160,3 @@ try {
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
-# Update 1764801941
-# Update 1764801943
-# Update 1764801945
