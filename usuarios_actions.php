@@ -43,6 +43,19 @@ try {
                 exit();
             }
             
+            // Verificar si el email ya está en uso por otro usuario
+            $sql_check = "SELECT id FROM usuarios WHERE email = ? AND id != ?";
+            $stmt_check = $pdo->prepare($sql_check);
+            $stmt_check->execute([$email, $user_id]);
+            
+            if ($stmt_check->rowCount() > 0) {
+                echo json_encode([
+                    'success' => false, 
+                    'message' => 'El email ya está registrado por otro usuario'
+                ]);
+                exit();
+            }
+            
             // Actualizar usuario
             $sql = "UPDATE usuarios 
                     SET nombre = ?, apellidos = ?, email = ?, telefono = ?, id_perfil = ? 
