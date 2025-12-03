@@ -133,18 +133,40 @@ try {
                                     ?>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary" title="Editar">
+                                    <button class="btn btn-sm btn-primary btn-editar" 
+                                            data-id="<?php echo $user['id']; ?>"
+                                            data-usuario="<?php echo $user['usuario']; ?>"
+                                            data-nombre="<?php echo $user['nombre']; ?>"
+                                            data-apellidos="<?php echo $user['apellidos']; ?>"
+                                            data-email="<?php echo $user['email']; ?>"
+                                            data-telefono="<?php echo $user['telefono']; ?>"
+                                            data-perfil="<?php echo $user['id_perfil']; ?>"
+                                            title="Editar">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <?php if ($user['estado'] == 1): ?>
-                                        <button class="btn btn-sm btn-warning" title="Desactivar">
+                                        <button class="btn btn-sm btn-warning btn-toggle-estado" 
+                                                data-id="<?php echo $user['id']; ?>"
+                                                data-estado="0"
+                                                data-nombre="<?php echo $user['nombre'] . ' ' . $user['apellidos']; ?>"
+                                                title="Desactivar">
                                             <i class="fa fa-ban"></i>
                                         </button>
                                     <?php else: ?>
-                                        <button class="btn btn-sm btn-success" title="Activar">
+                                        <button class="btn btn-sm btn-success btn-toggle-estado" 
+                                                data-id="<?php echo $user['id']; ?>"
+                                                data-estado="1"
+                                                data-nombre="<?php echo $user['nombre'] . ' ' . $user['apellidos']; ?>"
+                                                title="Activar">
                                             <i class="fa fa-check"></i>
                                         </button>
                                     <?php endif; ?>
+                                    <button class="btn btn-sm btn-info btn-resetear" 
+                                            data-id="<?php echo $user['id']; ?>"
+                                            data-nombre="<?php echo $user['nombre'] . ' ' . $user['apellidos']; ?>"
+                                            title="Resetear Contraseña">
+                                        <i class="fa fa-key"></i>
+                                    </button>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -155,8 +177,184 @@ try {
         </div>
     </div>
 
+    <!-- Modal Editar Usuario -->
+    <div class="modal fade" id="modalEditarUsuario" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <h4 class="modal-title"><i class="fa fa-edit"></i> Editar Usuario</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+                </div>
+                <form id="formEditarUsuario">
+                    <div class="modal-body">
+                        <input type="hidden" id="edit_user_id" name="user_id">
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Usuario <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="edit_usuario" name="usuario" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Perfil <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="edit_perfil" name="id_perfil" required>
+                                        <?php foreach ($perfiles as $perfil): ?>
+                                            <option value="<?php echo $perfil['id']; ?>"><?php echo $perfil['nombre']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nombre <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="edit_nombre" name="nombre" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Apellidos <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="edit_apellidos" name="apellidos" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="edit_email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Teléfono</label>
+                                    <input type="text" class="form-control" id="edit_telefono" name="telefono">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-save"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        
+        // Abrir modal de editar
+        $('.btn-editar').click(function() {
+            var id = $(this).data('id');
+            var usuario = $(this).data('usuario');
+            var nombre = $(this).data('nombre');
+            var apellidos = $(this).data('apellidos');
+            var email = $(this).data('email');
+            var telefono = $(this).data('telefono');
+            var perfil = $(this).data('perfil');
+            
+            $('#edit_user_id').val(id);
+            $('#edit_usuario').val(usuario);
+            $('#edit_nombre').val(nombre);
+            $('#edit_apellidos').val(apellidos);
+            $('#edit_email').val(email);
+            $('#edit_telefono').val(telefono);
+            $('#edit_perfil').val(perfil);
+            
+            $('#modalEditarUsuario').modal('show');
+        });
+        
+        // Enviar formulario de edición
+        $('#formEditarUsuario').submit(function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                url: 'usuarios_actions.php',
+                type: 'POST',
+                data: $(this).serialize() + '&action=editar',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        alert('✅ Usuario actualizado correctamente');
+                        location.reload();
+                    } else {
+                        alert('❌ Error: ' + response.message);
+                    }
+                },
+                error: function() {
+                    alert('❌ Error al comunicarse con el servidor');
+                }
+            });
+        });
+        
+        // Cambiar estado (activar/desactivar)
+        $('.btn-toggle-estado').click(function() {
+            var id = $(this).data('id');
+            var estado = $(this).data('estado');
+            var nombre = $(this).data('nombre');
+            var accion = estado == 1 ? 'activar' : 'desactivar';
+            
+            if (confirm('¿Estás seguro de ' + accion + ' a ' + nombre + '?')) {
+                $.ajax({
+                    url: 'usuarios_actions.php',
+                    type: 'POST',
+                    data: {
+                        action: 'cambiar_estado',
+                        user_id: id,
+                        estado: estado
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            alert('✅ Estado cambiado correctamente');
+                            location.reload();
+                        } else {
+                            alert('❌ Error: ' + response.message);
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Resetear contraseña
+        $('.btn-resetear').click(function() {
+            var id = $(this).data('id');
+            var nombre = $(this).data('nombre');
+            
+            if (confirm('¿Resetear la contraseña de ' + nombre + ' a "123456"?')) {
+                $.ajax({
+                    url: 'usuarios_actions.php',
+                    type: 'POST',
+                    data: {
+                        action: 'resetear_password',
+                        user_id: id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            alert('✅ Contraseña reseteada a: 123456');
+                        } else {
+                            alert('❌ Error: ' + response.message);
+                        }
+                    }
+                });
+            }
+        });
+        
+    });
+    </script>
 </body>
 </html>
