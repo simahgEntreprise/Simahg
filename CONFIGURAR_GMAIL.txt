@@ -1,0 +1,89 @@
+## 📧 CONFIGURAR GMAIL PARA ENVÍO DE CORREOS - SIMAHG
+
+Para que el sistema pueda enviar códigos de recuperación por email, debes configurar una "Contraseña de Aplicación" de Gmail.
+
+### 📝 Pasos para Obtener la Contraseña de Aplicación:
+
+#### 1️⃣ Habilitar Verificación en 2 Pasos
+1. Ve a tu cuenta de Google: https://myaccount.google.com/
+2. En el menú izquierdo, haz clic en **"Seguridad"**
+3. Busca **"Verificación en 2 pasos"**
+4. Si no está activada, actívala (es obligatorio para las contraseñas de aplicación)
+
+#### 2️⃣ Crear Contraseña de Aplicación
+1. Una vez activada la verificación en 2 pasos, regresa a **"Seguridad"**
+2. Busca **"Contraseñas de aplicaciones"** (al final de la sección de verificación en 2 pasos)
+3. Haz clic en **"Contraseñas de aplicaciones"**
+4. Puede que te pida tu contraseña de Gmail nuevamente
+5. En "Selecciona la aplicación", elige **"Correo"**
+6. En "Selecciona el dispositivo", elige **"Otro (nombre personalizado)"**
+7. Escribe: **"SIMAHG"**
+8. Haz clic en **"Generar"**
+9. Google te mostrará una contraseña de 16 caracteres como: `abcd efgh ijkl mnop`
+
+#### 3️⃣ Configurar en SIMAHG
+1. Abre el archivo: `/Applications/XAMPP/xamppfiles/htdocs/simahg/config_email.php`
+2. En la línea 27, reemplaza:
+   ```php
+   $mail->Username   = 'lothararbaiza0506@gmail.com';  // TU EMAIL
+   ```
+   Por tu email de Gmail (si es diferente)
+
+3. En la línea 28, reemplaza:
+   ```php
+   $mail->Password   = 'tu_contraseña_de_aplicacion';
+   ```
+   Por la contraseña de aplicación que generaste (los 16 caracteres, sin espacios)
+   Ejemplo:
+   ```php
+   $mail->Password   = 'abcdefghijklmnop';
+   ```
+
+4. Guarda el archivo
+
+#### 4️⃣ Probar el Envío
+1. Ve a: http://localhost/simahg/recuperar_password.php
+2. Ingresa tu usuario
+3. Selecciona "Email"
+4. Deberías recibir el código en tu correo en menos de 1 minuto
+
+---
+
+### ⚠️ Notas Importantes:
+
+- **La contraseña de aplicación es DIFERENTE a tu contraseña de Gmail**
+- **No compartas esta contraseña** (si la pierdes, genera una nueva)
+- Los correos pueden tardar 30-60 segundos en llegar
+- Revisa la carpeta de **SPAM** si no llega
+- La contraseña tiene este formato: 16 caracteres sin espacios
+
+---
+
+### 🔧 Solución de Problemas:
+
+**Error: "SMTP connect() failed"**
+- Verifica que hayas habilitado la verificación en 2 pasos
+- Asegúrate de usar la contraseña de aplicación, no tu contraseña de Gmail
+
+**Error: "Invalid credentials"**
+- La contraseña de aplicación está incorrecta
+- Genera una nueva contraseña de aplicación
+
+**El correo no llega**
+- Revisa la carpeta de SPAM
+- Espera 1-2 minutos
+- Verifica que el email en la base de datos sea correcto
+
+---
+
+### 📱 Alternativa: Recuperación por SMS
+
+Si prefieres no configurar Gmail, puedes usar la recuperación por SMS:
+1. Edita `recuperar_password_process.php`
+2. Busca la sección de SMS (línea ~170)
+3. Integra un servicio como Twilio, Nexmo o similar
+4. Por ahora, el SMS solo muestra el código en pantalla (modo desarrollo)
+
+---
+
+**¡Una vez configurado, el sistema enviará códigos automáticamente!** ✅
